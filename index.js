@@ -1,11 +1,16 @@
 
-const express = require("express");
+const express = require("express"); 
 
 //database
 const Database = require("./database")
 
+
   //initialization
  const OurApp = express();
+
+ OurApp.use(express.json());
+  
+ // http://localhost:4000
 
  OurApp.get("/",(request,response) => {
      response.json({message: "Server is working!!!!!!"});
@@ -59,5 +64,45 @@ const Database = require("./database")
 OurApp.get("/author",(req,res) => {
     return res.json({author:Database.Author})
 });
+
+ // Route        /book/new
+ // Description  /add new book
+ // Access       Public 
+ // Parameters   NONE 
+ // Method       POST 
+
+ OurApp.post("/book/new", (req,res) => {
+    console.log(req.body) ; 
+    return res.json({message: 'Book added successfully'}); 
+ });
+
+ // Route        /Author/new
+ // Description  /add new Author
+ // Access       Public 
+ // Parameters   NONE 
+ // Method       POST 
+
+ OurApp.post('/author/new',(req,res) => {
+    const {newAuthor} = req.body;
+
+    console.log(newAuthor);
+
+   return res.json({message: 'author was added !!'});
+
+ });
+
+ // Route        /Author/new
+ // Description  /add new Author
+ // Access       Public 
+ // Parameters   NONE 
+ // Method       PUBLICATION
+
+ OurApp.post('/publication/new',(req,res) => {
+     const publication = req.body;
+
+     console.log(publication);
+
+     return res.json({message : 'Publication Added!!'});
+ });
 
  OurApp.listen(4000, () => console.log("Server is Running"));
